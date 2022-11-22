@@ -1,0 +1,645 @@
+[
+    {
+        "id": "39956a3288e538a8",
+        "type": "tab",
+        "label": "Proyecto_SCE",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1ed63534d8acf9f4",
+        "type": "http response",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 399.6666564941406,
+        "y": 288.6666564941406,
+        "wires": []
+    },
+    {
+        "id": "8f417952b6c799e9",
+        "type": "json",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": true,
+        "x": 379.6666564941406,
+        "y": 408.6666564941406,
+        "wires": [
+            [
+                "33873fc4ac856560"
+            ]
+        ]
+    },
+    {
+        "id": "601f620aa7e92280",
+        "type": "debug",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 870,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3b97e0edb6ed8a31",
+        "type": "ui_text",
+        "z": "39956a3288e538a8",
+        "group": "3cacab7861da68dd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Sensor Name",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 900,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "07bc4ad6e588270c",
+        "type": "ui_gauge",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "group": "3cacab7861da68dd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature 1",
+        "label": "ºC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 900,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "220fe8c803ef6e79",
+        "type": "ui_gauge",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "group": "3cacab7861da68dd",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature 2",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#0080ff",
+            "#0062c4",
+            "#002f5e"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 860,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "33873fc4ac856560",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "JSON or URL Encoded",
+        "func": "var msg0 = { payload: msg.payload.api_key };\nvar msg1 = { payload: msg.payload.sensor };\nvar msg2 = { payload: msg.payload.value1 };\nvar msg3 = { payload: msg.payload.value2 };\n\n\nreturn [msg0, msg1, msg2, msg3];",
+        "outputs": 4,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 639.6666564941406,
+        "y": 408.6666564941406,
+        "wires": [
+            [
+                "601f620aa7e92280"
+            ],
+            [
+                "3b97e0edb6ed8a31"
+            ],
+            [
+                "07bc4ad6e588270c",
+                "69bfa37f5b759ca9"
+            ],
+            [
+                "220fe8c803ef6e79",
+                "6662a130f91713e6"
+            ]
+        ]
+    },
+    {
+        "id": "a7c2a1ab2a144878",
+        "type": "http in",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "url": "update-sensor",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 199.66665649414062,
+        "y": 328.6666564941406,
+        "wires": [
+            [
+                "1ed63534d8acf9f4",
+                "8f417952b6c799e9",
+                "601f620aa7e92280"
+            ]
+        ]
+    },
+    {
+        "id": "69bfa37f5b759ca9",
+        "type": "change",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "temp1",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6662a130f91713e6",
+        "type": "change",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "temp2",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "99f8ea6ae403d9dc",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "temp1",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 540,
+        "wires": [
+            [
+                "0acb82cabd808a46"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "dba1bb54dc43de64",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "temp2",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "4db772ce83d843eb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "0acb82cabd808a46",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"temp1\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Temperatura 1=\" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 540,
+        "wires": [
+            [
+                "9d64bd7c0bb1f109"
+            ]
+        ]
+    },
+    {
+        "id": "4db772ce83d843eb",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"temp2\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Temperatura actual=\" + temp + \"°C\"\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 620,
+        "wires": [
+            [
+                "80006e3a6c26ed60"
+            ]
+        ]
+    },
+    {
+        "id": "9d64bd7c0bb1f109",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 600,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80006e3a6c26ed60",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 600,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1b1ae16d1887c325",
+        "type": "telegram receiver",
+        "z": "39956a3288e538a8",
+        "name": "Proyecto_SCE_bot",
+        "bot": "4ef179eb6040e6c8",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 199.66665649414062,
+        "y": 228.66665649414062,
+        "wires": [
+            [
+                "8b2efddf0a49476d"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8b2efddf0a49476d",
+        "type": "debug",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 439.6666564941406,
+        "y": 228.66665649414062,
+        "wires": []
+    },
+    {
+        "id": "db7d91c1d6ffa594",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "case_1",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 720,
+        "wires": [
+            [
+                "855561adbb2ac93e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "855561adbb2ac93e",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"case_1\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Case 1 started\" \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 720,
+        "wires": [
+            [
+                "f8d11c6413f5d841"
+            ]
+        ]
+    },
+    {
+        "id": "f8d11c6413f5d841",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "daa81de789c0071e",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "case_2",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 800,
+        "wires": [
+            [
+                "abafb02c3e4b2407"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "abafb02c3e4b2407",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"case_2\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Case 2 started\" \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 800,
+        "wires": [
+            [
+                "ddc1ce5d46b99553"
+            ]
+        ]
+    },
+    {
+        "id": "ddc1ce5d46b99553",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0fc8c2dff0a4a500",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "case_3",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 880,
+        "wires": [
+            [
+                "1a8a8d8c3dac9430"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1a8a8d8c3dac9430",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"case_3\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Case 3 started\" \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 880,
+        "wires": [
+            [
+                "6056232c104a905c"
+            ]
+        ]
+    },
+    {
+        "id": "6056232c104a905c",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7711996c986582c6",
+        "type": "telegram command",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "command": "case_4",
+        "description": "",
+        "registercommand": false,
+        "language": "",
+        "scope": "default",
+        "bot": "4ef179eb6040e6c8",
+        "strict": false,
+        "hasresponse": true,
+        "useregex": false,
+        "removeregexcommand": false,
+        "outputs": 2,
+        "x": 110,
+        "y": 960,
+        "wires": [
+            [
+                "6b54f301e9682b6a"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "6b54f301e9682b6a",
+        "type": "function",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "func": "var temp = flow.get(\"case_4\")\nmsg.payload={\n    \"chatId\": 1872802364,\n    \"type\": \"message\",\n    \"content\": \"Case 4 started\" \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 960,
+        "wires": [
+            [
+                "c614331323a6754a"
+            ]
+        ]
+    },
+    {
+        "id": "c614331323a6754a",
+        "type": "telegram sender",
+        "z": "39956a3288e538a8",
+        "name": "",
+        "bot": "4ef179eb6040e6c8",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 610,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3cacab7861da68dd",
+        "type": "ui_group",
+        "name": "SENSORS",
+        "tab": "99ab8dc5.f435c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "4ef179eb6040e6c8",
+        "type": "telegram bot",
+        "botname": "Proyecto_SCE_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "99ab8dc5.f435c",
+        "type": "ui_tab",
+        "name": "HTTP",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
